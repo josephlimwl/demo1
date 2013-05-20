@@ -5,5 +5,6 @@
     <author href="http://phonegap.com" email="support@phonegap.com">demo1 author</author>    
 	<preference name="phonegap-version"           value="2.5.0" />
     <preference name="orientation"                value="default" />    
-	<gap:splash src="res/screen/screen.jpg" gap:platform="winphone" width="480" height="800" />
+	<icon src="icon.png" gap:role="default" />
+	<gap:splash src="res/screen/screen.jpg" gap:platform="winphone" />
 </widget>
