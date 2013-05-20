@@ -3,8 +3,8 @@
     <name>Demo1</name>
     <description>desc1</description>
     <author href="http://phonegap.com" email="support@phonegap.com">demo1 author</author>    
-	<preference name="phonegap-version"           value="2.5.0" />
-    <preference name="orientation"                value="default" />    
-	<icon src="icon.png" gap:role="default" />
+	<preference name="phonegap-version" value="2.5.0" />
+    <preference name="orientation" value="default" />    
+	<icon src="icon.png" />
 	<gap:splash src="res/screen/screen.jpg" gap:platform="winphone" />
 </widget>
