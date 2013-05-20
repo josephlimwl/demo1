@@ -5,4 +5,5 @@
     <author href="http://phonegap.com" email="support@phonegap.com">demo1 author</author>    
 	<preference name="phonegap-version"           value="2.5.0" />
     <preference name="orientation"                value="default" />    
+	<gap:splash src="screen/screen.png" width="480" height="800" />
 </widget>
