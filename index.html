@@ -14,10 +14,13 @@ var destinationType; // sets the format of returned value
 // Wait for Cordova to connect with the device
 //
 document.addEventListener("deviceready",onDeviceReady,false);
-
 // Cordova is ready to be used!
 //
+
+
+
 function onDeviceReady() {
+
 pictureSource=navigator.camera.PictureSourceType;
 destinationType=navigator.camera.DestinationType;
 }
@@ -93,15 +96,50 @@ function onFail(message) {
 alert('Failed because: ' + message);
 }
 
+function isNumber(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+function conversion(){
+
+var xcrate = isNumber(xc.value.trim()) ? xc.value.trim() : 1;
+	var uval = isNumber(uv.value.trim()) ? uv.value.trim() : 1;	
+	try {		
+		var result = uval / xcrate;
+		var resultdiv = document.getElementById('amt');
+		if (isNumber(result))
+			resultdiv.innerHTML = "$ " + result.toFixed(2);
+		else
+			resultdiv.innerHTML = "Error";
+	}
+	catch(err){
+	}
+}
+
 </script>
 </head>
-<body style="background:url('res/bg/bg2.png') no-repeat;">
+<body style="background:url('res/bg/bg2.png') no-repeat; font-family:arial;">
+<input id="xcrate"><br/>
+<input id="uvalue"><br/>
+<div id="amt" style="font-size:larger; color:red; display:block;">$</div>
 <button onclick="capturePhoto();">Capture Photo</button> <br>
 <button onclick="capturePhotoEdit();">Capture Editable Photo</button> <br>
 <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br>
 <!--<button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br>-->
 <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
 <img style="display:none;" id="largeImage" src="" />
+<script>
+var xc = document.getElementById('xcrate');
+var uv = document.getElementById('uvalue');
+uv.focus();
+uv.onkeyup=function(){
+	conversion();
+};
+xc.onkeyup=function(){
+	conversion();
+};
+
+</script>
 </body>
 </html>
 
