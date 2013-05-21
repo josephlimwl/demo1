@@ -10,6 +10,8 @@
 
 var pictureSource; // picture source
 var destinationType; // sets the format of returned value 
+var xc;
+var uv;
 
 // Wait for Cordova to connect with the device
 //
@@ -20,8 +22,8 @@ document.addEventListener("deviceready",onDeviceReady,false);
 
 
 function onDeviceReady() {
-var xc = document.getElementById('xcrate');
-var uv = document.getElementById('uvalue');
+xc = document.getElementById('xcrate');
+uv = document.getElementById('uvalue');
 pictureSource=navigator.camera.PictureSourceType;
 destinationType=navigator.camera.DestinationType;
 }
@@ -102,9 +104,12 @@ function isNumber(n) {
 }
 
 function conversion(){
+var infobar = document.getElementById('infobar');
+infobar.innerHTML = infobar.innerHTML + "- A";
 
 var xcrate = isNumber(xc.value.trim()) ? xc.value.trim() : 1;
-	var uval = isNumber(uv.value.trim()) ? uv.value.trim() : 1;	
+var uval = isNumber(uv.value.trim()) ? uv.value.trim() : 1;	
+
 	try {		
 		var result = uval / xcrate;
 		var resultdiv = document.getElementById('amt');
@@ -120,10 +125,11 @@ var xcrate = isNumber(xc.value.trim()) ? xc.value.trim() : 1;
 </script>
 </head>
 <body style="background:url('res/bg/bg2.png') no-repeat; font-family:arial;">
-<div style="color:white; font-size:larger;">v0.0.1</div>
+<div id="infobar" style="color:white; font-size:larger;">Demo v0.0.2</div>
 <input id="xcrate" type="number" onkeyup="conversion()"><br/>
 <input id="uvalue" type="number" onkeyup="conversion()"><br/>
-<div id="amt" style="font-size:larger; color:red; display:block;">$</div>
+<div id="amt" style="margin:5px; font-size:larger; color:red; display:block;">$</div>
+<br/>
 <button onclick="capturePhoto();">Capture Photo</button> <br>
 <button onclick="capturePhotoEdit();">Capture Editable Photo</button> <br>
 <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br>
