@@ -105,7 +105,7 @@ function isNumber(n) {
 
 function conversion(){
 var infobar = document.getElementById('infobar');
-infobar.innerHTML = infobar.innerHTML + "- A";
+infobar.innerHTML = "- A";
 
 var xcrate = isNumber(xc.value.trim()) ? xc.value.trim() : 1;
 var uval = isNumber(uv.value.trim()) ? uv.value.trim() : 1;	
@@ -125,9 +125,9 @@ var uval = isNumber(uv.value.trim()) ? uv.value.trim() : 1;
 </script>
 </head>
 <body style="background:url('res/bg/bg2.png') no-repeat; font-family:arial;">
-<div id="infobar" style="color:white; font-size:larger;">Demo v0.0.2</div>
-<input id="xcrate" type="number" onkeyup="conversion()"><br/>
-<input id="uvalue" type="number" onkeyup="conversion()"><br/>
+<div id="infobar" style="color:white; font-size:larger;">Demo v0.0.3</div>
+<input id="xcrate" type="text" pattern="\d*" onkeyup="conversion()"/><br/>
+<input id="uvalue" type="text" pattern="[0-9]" onkeyup="conversion()"/><br/>
 <div id="amt" style="margin:5px; font-size:larger; color:red; display:block;">$</div>
 <br/>
 <button onclick="capturePhoto();">Capture Photo</button> <br>
