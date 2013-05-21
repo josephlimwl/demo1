@@ -20,6 +20,15 @@ document.addEventListener("deviceready",onDeviceReady,false);
 
 
 function onDeviceReady() {
+var xc = document.getElementById('xcrate');
+var uv = document.getElementById('uvalue');
+uv.focus();
+uv.onkeyup=function(){
+	conversion();
+};
+xc.onkeyup=function(){
+	conversion();
+};
 
 pictureSource=navigator.camera.PictureSourceType;
 destinationType=navigator.camera.DestinationType;
@@ -128,18 +137,7 @@ var xcrate = isNumber(xc.value.trim()) ? xc.value.trim() : 1;
 <!--<button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br>-->
 <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
 <img style="display:none;" id="largeImage" src="" />
-<script>
-var xc = document.getElementById('xcrate');
-var uv = document.getElementById('uvalue');
-uv.focus();
-uv.onkeyup=function(){
-	conversion();
-};
-xc.onkeyup=function(){
-	conversion();
-};
 
-</script>
 </body>
 </html>
 
