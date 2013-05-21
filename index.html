@@ -147,12 +147,21 @@ function getlastvalue()
 	//window.localStorage.removeItem("key");        
 	//window.localStorage.clear();  
 }
+function clear_value()
+{
+uv.value = "";
+}
+
+function clear_xc()
+{
+xc.value = "1";
+}
 </script>
 </head>
 <body style="background:url('res/bg/bg2.png') no-repeat; font-family:arial;">
 <div id="infobar" style="color:white; font-size:larger;">Demo v0.0.8</div>
-<input id="xcrate" type="number" onkeyup="xcupdate()"/><br/>
-<input id="uvalue" type="number" onkeyup="conversion()"/><br/>
+<input id="xcrate" type="number" style="vertical-align:bottom; width:80px;" onkeyup="xcupdate()"/> <img id="img_clear_xcrate" onclick="clear_xc()" src="res/btn/btn_cancel.png" style="width:24px; height:24px; border:none; padding:0px 5px; vertical-align:bottom;"/> &nbsp; &nbsp; 
+<input id="uvalue" type="number" onkeyup="conversion()"/> <img id="img_clear_value" onclick="clear_value()" src="res/btn/btn_cancel.png" style="width:24px; height:24px; border:none; padding:0px 5px; vertical-align:bottom;"/> <br/>
 <div id="amt" style="margin:5px; font-size:x-large; color:white; font-weight:bold; display:block;">$</div>
 <br/>
 <button onclick="capturePhoto();">Capture Photo</button> <br>
