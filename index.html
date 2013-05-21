@@ -22,14 +22,6 @@ document.addEventListener("deviceready",onDeviceReady,false);
 function onDeviceReady() {
 var xc = document.getElementById('xcrate');
 var uv = document.getElementById('uvalue');
-uv.focus();
-uv.onkeyup=function(){
-	conversion();
-};
-xc.onkeyup=function(){
-	conversion();
-};
-
 pictureSource=navigator.camera.PictureSourceType;
 destinationType=navigator.camera.DestinationType;
 }
@@ -128,8 +120,8 @@ var xcrate = isNumber(xc.value.trim()) ? xc.value.trim() : 1;
 </script>
 </head>
 <body style="background:url('res/bg/bg2.png') no-repeat; font-family:arial;">
-<input id="xcrate"><br/>
-<input id="uvalue"><br/>
+<input id="xcrate" type="number" onkeyup="conversion()"><br/>
+<input id="uvalue" type="number" onkeyup="conversion()"><br/>
 <div id="amt" style="font-size:larger; color:red; display:block;">$</div>
 <button onclick="capturePhoto();">Capture Photo</button> <br>
 <button onclick="capturePhotoEdit();">Capture Editable Photo</button> <br>
