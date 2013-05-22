@@ -36,13 +36,17 @@ selectedInput = which;
 
 if (which == 1)
 {
-xc.style.borderColor = "#ff0000";
+xc.style.borderColor = "#0094FF";
+xc.style.borderWidth = "medium";
 uv.style.borderColor = "#000000";
+uv.style.borderWidth = "thin";
 }
 else if (which == 2)
 {
-uv.style.borderColor = "#ff0000";
+uv.style.borderColor = "#0094FF";
+uv.style.borderWidth = "medium";
 xc.style.borderColor = "#000000";
+xc.style.borderWidth = "thin";
 }
 }
 
@@ -60,7 +64,8 @@ else if (selectedInput == 2)
 
 if (what == "dot")
 {
-	result = result + ".";
+	if (result.toString().indexOf(".") < 0)
+		result = result + ".";
 }
 else if (what == "bksp")
 {
@@ -181,8 +186,9 @@ function getLastValue()
 function clear_value()
 {
 uvvalue = 0;
-//resultdiv.innerHTML = "$ 0.00"
+conversion();
 updateDisplay();
+setSelectedInput(2);
 }
 
 function clear_xc()
@@ -191,24 +197,28 @@ xcvalue = 0;
 xcupdate();	
 conversion();
 updateDisplay();
+setSelectedInput(1);
 }
 </script>
 </head>
+<!-- <body  onload="onDeviceReady();"  style="background:url('res/bg/bg2.png') no-repeat; font-family:arial;"> -->
+
 <body style="background:url('res/bg/bg2.png') no-repeat; font-family:arial;">
+
 <div id="infobar" style="color:white; font-size:larger;">Demo v0.0.10</div>
 <!-- 
 onload="onDeviceReady();"
 -->
 
-<div id="xcrate" style="border:1px solid #000000; color:#ffffff; vertical-align:bottom; width:75px; padding:5px; float:left;" onclick="setSelectedInput(1)">
-</div> <div style="float:left;"><img id="img_clear_xcrate" onclick="clear_xc()" src="res/btn/btn_cancel.png" style="width:24px; height:24px; border:none; padding:0px 5px; vertical-align:bottom;"/> &nbsp;</div>
+<div id="xcrate" style="border:1px solid #000000; text-align:right; color:#ffffff; vertical-align:bottom; width:65px; padding:5px; float:left;" onclick="setSelectedInput(1)">
+</div> <div style="float:left;vertical-align:bottom;"><img id="img_clear_xcrate" onclick="clear_xc()" src="res/btn/btn_cancel.png" style="width:24px; height:24px; border:none; padding:0px 5px; vertical-align:bottom;"/> &nbsp;</div>
 
-<div id="uvalue" style="border:1px solid #000000; color:#ffffff; vertical-align:bottom; width:105px; padding:5px; float:left;" onclick="setSelectedInput(2)">
-</div> <div style="float:left;"><img id="img_clear_value" onclick="clear_value()" src="res/btn/btn_cancel.png" style="width:24px; height:24px; border:none; padding:0px 5px; vertical-align:bottom;"/></div>
+<div id="uvalue" style="border:1px solid #000000;text-align:right; color:#ffffff; vertical-align:bottom; width:95px; padding:5px; float:left;" onclick="setSelectedInput(2)">
+</div> <div style="float:left;vertical-align:bottom;"><img id="img_clear_value" onclick="clear_value()" src="res/btn/btn_cancel.png" style="width:24px; height:24px; border:none; padding:0px 5px; vertical-align:bottom;"/></div>
 
 <div style="clear:both;">&nbsp;</div>
 
-<div id="amt" style="margin:5px; font-size:x-large; color:white; font-weight:bold; display:block;">$</div>
+<div id="amt" style="margin:5px; font-size:xx-large; color:white; font-weight:bold; display:block;">$</div>
 <br/>
 <img src="res/btn/1.png" style="width:48px;height:48px;" onclick="user_input(1)" /> <img src="res/btn/2.png" style="width:48px;height:48px;" onclick="user_input(2)" /> <img src="res/btn/3.png" style="width:48px;height:48px;" onclick="user_input(3)" /><br/>
 <img src="res/btn/4.png" style="width:48px;height:48px;" onclick="user_input(4)" /> <img src="res/btn/5.png" style="width:48px;height:48px;" onclick="user_input(5)" /> <img src="res/btn/6.png" style="width:48px;height:48px;" onclick="user_input(6)" /><br/>
