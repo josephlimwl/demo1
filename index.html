@@ -160,10 +160,8 @@ var uval = isNumber(uvvalue) ? uvvalue : 1;
 
 function xcupdate()
 {
-//conversion();
-//var xcrate = isNumber(xcvalue) ? xcvalue : 1;
 try {
-window.localStorage.setItem("last_xc", xcrate);
+	window.localStorage.setItem("last_xc", xcvalue);
 }
 catch(err) {
 }
@@ -203,9 +201,9 @@ setSelectedInput(1);
 </head>
 <!-- <body  onload="onDeviceReady();"  style="background:url('res/bg/bg2.png') no-repeat; font-family:arial;"> -->
 
-<body style="background:url('res/bg/bg2.png') no-repeat; font-family:arial;">
+<body style="background:url('res/bg/bg1.png') no-repeat; font-family:arial;">
 
-<div id="infobar" style="color:white; font-size:larger;">Demo v0.0.10</div>
+<div id="infobar" style="color:white; font-size:larger; padding:5px;">Demo v0.0.11</div>
 <!-- 
 onload="onDeviceReady();"
 -->
@@ -220,10 +218,10 @@ onload="onDeviceReady();"
 
 <div id="amt" style="margin:5px; font-size:xx-large; color:white; font-weight:bold; display:block;">$</div>
 <br/>
-<img src="res/btn/1.png" style="width:48px;height:48px;" onclick="user_input(1)" /> <img src="res/btn/2.png" style="width:48px;height:48px;" onclick="user_input(2)" /> <img src="res/btn/3.png" style="width:48px;height:48px;" onclick="user_input(3)" /><br/>
-<img src="res/btn/4.png" style="width:48px;height:48px;" onclick="user_input(4)" /> <img src="res/btn/5.png" style="width:48px;height:48px;" onclick="user_input(5)" /> <img src="res/btn/6.png" style="width:48px;height:48px;" onclick="user_input(6)" /><br/>
-<img src="res/btn/7.png" style="width:48px;height:48px;" onclick="user_input(7)" /> <img src="res/btn/8.png" style="width:48px;height:48px;"  onclick="user_input(8)"/> <img src="res/btn/9.png" style="width:48px;height:48px;" onclick="user_input(9)" /><br/>
-<img src="res/btn/dot.png" style="width:48px;height:48px;" onclick="user_input('dot')" /> <img src="res/btn/0.png" style="width:48px;height:48px;" onclick="user_input(0)" /> <img src="res/btn/back.png" style="width:48px;height:48px;" onclick="user_input('bksp')" /><br/>
+<img src="res/btn/1.png" style="width:56px;height:56px;" onclick="user_input(1)" /> <img src="res/btn/2.png" style="width:56px;height:56px;" onclick="user_input(2)" /> <img src="res/btn/3.png" style="width:56px;height:56px;" onclick="user_input(3)" /><br/>
+<img src="res/btn/4.png" style="width:56px;height:56px;" onclick="user_input(4)" /> <img src="res/btn/5.png" style="width:56px;height:56px;" onclick="user_input(5)" /> <img src="res/btn/6.png" style="width:56px;height:56px;" onclick="user_input(6)" /><br/>
+<img src="res/btn/7.png" style="width:56px;height:56px;" onclick="user_input(7)" /> <img src="res/btn/8.png" style="width:56px;height:56px;"  onclick="user_input(8)"/> <img src="res/btn/9.png" style="width:56px;height:56px;" onclick="user_input(9)" /><br/>
+<img src="res/btn/dot.png" style="width:56px;height:56px;" onclick="user_input('dot')" /> <img src="res/btn/0.png" style="width:56px;height:56px;" onclick="user_input(0)" /> <img src="res/btn/back.png" style="width:56px;height:56px;" onclick="user_input('bksp')" /><br/>
 
 <!-- <button onclick="capturePhoto();">Capture Photo</button> <br>
 <button onclick="capturePhotoEdit();">Capture Editable Photo</button> <br>
