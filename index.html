@@ -2,105 +2,134 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Capture Photo</title>
-
+<title>Demo1</title>
 <script src="phonegap.js"></script>
-
 <script type="text/javascript" charset="utf-8">
 
-var pictureSource; // picture source
-var destinationType; // sets the format of returned value 
+var pictureSource; 
+var destinationType;
 var xc;
 var uv;
+var xcvalue = 1;
+var uvvalue = 0;
+var selectedInput = 2;
 
-// Wait for Cordova to connect with the device
-//
 document.addEventListener("deviceready",onDeviceReady,false);
-// Cordova is ready to be used!
-//
-
-
 
 function onDeviceReady() {
 xc = document.getElementById('xcrate');
 uv = document.getElementById('uvalue');
-getlastvalue();
+getLastValue();
+setSelectedInput(2);
+updateDisplay();
 pictureSource=navigator.camera.PictureSourceType;
 destinationType=navigator.camera.DestinationType;
 }
 
-// Called when a photo is successfully retrieved
-//
+function updateDisplay() {	
+	xc.innerHTML = xcvalue;
+	uv.innerHTML = uvvalue;
+}
+
+function setSelectedInput(which) {
+selectedInput = which;
+
+if (which == 1)
+{
+xc.style.borderColor = "#ff0000";
+uv.style.borderColor = "#000000";
+}
+else if (which == 2)
+{
+uv.style.borderColor = "#ff0000";
+xc.style.borderColor = "#000000";
+}
+}
+
+function user_input(what) {
+
+var result = 0;
+if (selectedInput == 1)
+{
+	result = xcvalue.toString();
+}
+else if (selectedInput == 2)
+{
+	result = uvvalue.toString();
+}
+
+if (what == "dot")
+{
+	result = result + ".";
+}
+else if (what == "bksp")
+{
+	result = result.substr(0, result.length - 1);
+	if (result == "")
+		result = "0";
+}
+else
+{
+	if (result != "0")
+		result = result + "" + what.toString();
+	else
+		result = "" + what.toString();
+}
+
+if (selectedInput == 1)
+{
+	if (result == "0")
+		result = "1";
+		
+	xcvalue = result;
+	xcupdate();	
+}
+else if (selectedInput == 2)
+{
+	uvvalue = result;	
+}
+
+conversion();
+updateDisplay();
+}
+
+
 function onPhotoDataSuccess(imageData) {
-// Uncomment to view the base64 encoded image data
-// console.log(imageData);
-
-// Get image handle
-//
 var smallImage = document.getElementById('smallImage');
-
-// Unhide image elements
-//
 smallImage.style.display = 'block';
-
-// Show the captured photo
-// The inline CSS rules are used to resize the image
-//
 smallImage.src = "data:image/jpeg;base64," + imageData;
 }
 
-// Called when a photo is successfully retrieved
-//
 function onPhotoURISuccess(imageURI) {
-// Uncomment to view the image file URI 
-// console.log(imageURI);
-
-// Get image handle
-//
 var largeImage = document.getElementById('largeImage');
-
-// Unhide image elements
-//
 largeImage.style.display = 'block';
-
-// Show the captured photo
-// The inline CSS rules are used to resize the image
-//
 largeImage.src = imageURI;
 }
 
-// A button will call this function
-//
 function capturePhoto() {
-// Take picture using device camera and retrieve image as base64-encoded string
 navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50,
 destinationType: destinationType.DATA_URL });
 }
 
-// A button will call this function
-//
 function capturePhotoEdit() {
-// Take picture using device camera, allow edit, and retrieve image as base64-encoded string 
 navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 20, allowEdit: true,
 destinationType: destinationType.DATA_URL });
 }
 
-// A button will call this function
-//
 function getPhoto(source) {
-// Retrieve image file location from specified source
 navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50, 
 destinationType: destinationType.FILE_URI,
 sourceType: source });
 }
 
-// Called if something bad happens.
-// 
 function onFail(message) {
 alert('Failed because: ' + message);
 }
 
 function isNumber(n) {
+	if (n.toString().substr(n.length - 1, n.length) == ".")
+		n = n.toString() + "0";
+		
   return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
@@ -108,8 +137,8 @@ function conversion(){
 var infobar = document.getElementById('infobar');
 infobar.innerHTML = "- A";
 
-var xcrate = isNumber(xc.value.trim()) ? xc.value.trim() : 1;
-var uval = isNumber(uv.value.trim()) ? uv.value.trim() : 1;	
+var xcrate = isNumber(xcvalue) ? xcvalue : 1;
+var uval = isNumber(uvvalue) ? uvvalue : 1;	
 
 	try {		
 		var result = uval / xcrate;
@@ -125,49 +154,66 @@ var uval = isNumber(uv.value.trim()) ? uv.value.trim() : 1;
 
 function xcupdate()
 {
-conversion();
-
-var xcrate = isNumber(xc.value.trim()) ? xc.value.trim() : 1;
+//conversion();
+//var xcrate = isNumber(xcvalue) ? xcvalue : 1;
+try {
 window.localStorage.setItem("last_xc", xcrate);
 }
+catch(err) {
+}
+}
 
-function getlastvalue()
-{
-	//var keyname = window.localStorage.key(i);      // keyname is now equal to "key"         
+function getLastValue()
+{	
 	try {		
 		var v = window.localStorage.getItem("last_xc");
 		if (v != null && isNumber(v))
-			xc.value = v;
+			xcvalue = v;
 		else
-			xc.value = "1";
+			xcvalue = 1;
 	}
 	catch(err){		
-	xc.value = "1";
-	}
-	//window.localStorage.removeItem("key");        
-	//window.localStorage.clear();  
+		xcvalue = 1;
+	}	
 }
+
 function clear_value()
 {
-uv.value = "";
+uvvalue = 0;
+resultdiv.innerHTML = "$ 0.00"
 }
 
 function clear_xc()
 {
-xc.value = "1";
+xcvalue = 1;
 window.localStorage.setItem("last_xc", "1");
+conversion();
 }
 </script>
 </head>
 <body style="background:url('res/bg/bg2.png') no-repeat; font-family:arial;">
-<div id="infobar" style="color:white; font-size:larger;">Demo v0.0.8</div>
-<input id="xcrate" type="number" style="vertical-align:bottom; width:80px;" onkeyup="xcupdate()"/> <img id="img_clear_xcrate" onclick="clear_xc()" src="res/btn/btn_cancel.png" style="width:24px; height:24px; border:none; padding:0px 5px; vertical-align:bottom;"/> &nbsp; &nbsp; 
-<input id="uvalue" type="number" onkeyup="conversion()"/> <img id="img_clear_value" onclick="clear_value()" src="res/btn/btn_cancel.png" style="width:24px; height:24px; border:none; padding:0px 5px; vertical-align:bottom;"/> <br/>
+<div id="infobar" style="color:white; font-size:larger;">Demo v0.0.9</div>
+<!-- 
+onload="onDeviceReady();"
+-->
+
+<div id="xcrate" style="border:1px solid #000000; color:#ffffff; vertical-align:bottom; width:75px;" onclick="setSelectedInput(1)">
+</div> <img id="img_clear_xcrate" onclick="clear_xc()" src="res/btn/btn_cancel.png" style="width:24px; height:24px; border:none; padding:0px 5px; vertical-align:bottom;"/> &nbsp; &nbsp; 
+
+<div id="uvalue" style="border:1px solid #000000; color:#ffffff; vertical-align:bottom; width:125px;" onclick="setSelectedInput(2)">
+</div> <img id="img_clear_value" onclick="clear_value()" src="res/btn/btn_cancel.png" style="width:24px; height:24px; border:none; padding:0px 5px; vertical-align:bottom;"/> <br/>
+
 <div id="amt" style="margin:5px; font-size:x-large; color:white; font-weight:bold; display:block;">$</div>
 <br/>
-<button onclick="capturePhoto();">Capture Photo</button> <br>
+<img src="res/btn/1.png" style="width:48px;height:48px;" onclick="user_input(1)" /> <img src="res/btn/2.png" style="width:48px;height:48px;" onclick="user_input(2)" /> <img src="res/btn/3.png" style="width:48px;height:48px;" onclick="user_input(3)" /><br/>
+<img src="res/btn/4.png" style="width:48px;height:48px;" onclick="user_input(4)" /> <img src="res/btn/5.png" style="width:48px;height:48px;" onclick="user_input(5)" /> <img src="res/btn/6.png" style="width:48px;height:48px;" onclick="user_input(6)" /><br/>
+<img src="res/btn/7.png" style="width:48px;height:48px;" onclick="user_input(7)" /> <img src="res/btn/8.png" style="width:48px;height:48px;"  onclick="user_input(8)"/> <img src="res/btn/9.png" style="width:48px;height:48px;" onclick="user_input(9)" /><br/>
+<img src="res/btn/dot.png" style="width:48px;height:48px;" onclick="user_input('dot')" /> <img src="res/btn/0.png" style="width:48px;height:48px;" onclick="user_input(0)" /> <img src="res/btn/back.png" style="width:48px;height:48px;" onclick="user_input('bksp')" /><br/>
+
+<!-- <button onclick="capturePhoto();">Capture Photo</button> <br>
 <button onclick="capturePhotoEdit();">Capture Editable Photo</button> <br>
-<button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br>
+<button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br> -->
+
 <!--<button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br>-->
 <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
 <img style="display:none;" id="largeImage" src="" />
