@@ -78,9 +78,9 @@ else
 
 if (selectedInput == 1)
 {
-	if (result == "0")
+	/*if (result == "0")
 		result = "1";
-		
+		*/
 	xcvalue = result;
 	xcupdate();	
 }
@@ -149,6 +149,7 @@ var uval = isNumber(uvvalue) ? uvvalue : 1;
 			resultdiv.innerHTML = "Error";
 	}
 	catch(err){
+	resultdiv.innerHTML = "Error";
 	}
 }
 
@@ -180,28 +181,32 @@ function getLastValue()
 function clear_value()
 {
 uvvalue = 0;
-resultdiv.innerHTML = "$ 0.00"
+//resultdiv.innerHTML = "$ 0.00"
+updateDisplay();
 }
 
 function clear_xc()
 {
-xcvalue = 1;
-window.localStorage.setItem("last_xc", "1");
+xcvalue = 0;
+xcupdate();	
 conversion();
+updateDisplay();
 }
 </script>
 </head>
-<body style="background:url('res/bg/bg2.png') no-repeat; font-family:arial;">
+<body onload="onDeviceReady();" style="background:url('res/bg/bg2.png') no-repeat; font-family:arial;">
 <div id="infobar" style="color:white; font-size:larger;">Demo v0.0.9</div>
 <!-- 
 onload="onDeviceReady();"
 -->
 
-<div id="xcrate" style="border:1px solid #000000; color:#ffffff; vertical-align:bottom; width:75px;" onclick="setSelectedInput(1)">
-</div> <img id="img_clear_xcrate" onclick="clear_xc()" src="res/btn/btn_cancel.png" style="width:24px; height:24px; border:none; padding:0px 5px; vertical-align:bottom;"/> &nbsp; &nbsp; 
+<div id="xcrate" style="border:1px solid #000000; color:#ffffff; vertical-align:bottom; width:75px; padding:5px; float:left;" onclick="setSelectedInput(1)">
+</div> <div style="float:left;"><img id="img_clear_xcrate" onclick="clear_xc()" src="res/btn/btn_cancel.png" style="width:24px; height:24px; border:none; padding:0px 5px; vertical-align:bottom;"/> &nbsp;</div>
 
-<div id="uvalue" style="border:1px solid #000000; color:#ffffff; vertical-align:bottom; width:125px;" onclick="setSelectedInput(2)">
-</div> <img id="img_clear_value" onclick="clear_value()" src="res/btn/btn_cancel.png" style="width:24px; height:24px; border:none; padding:0px 5px; vertical-align:bottom;"/> <br/>
+<div id="uvalue" style="border:1px solid #000000; color:#ffffff; vertical-align:bottom; width:105px; padding:5px; float:left;" onclick="setSelectedInput(2)">
+</div> <div style="float:left;"><img id="img_clear_value" onclick="clear_value()" src="res/btn/btn_cancel.png" style="width:24px; height:24px; border:none; padding:0px 5px; vertical-align:bottom;"/></div>
+
+<div style="clear:both;">&nbsp;</div>
 
 <div id="amt" style="margin:5px; font-size:x-large; color:white; font-weight:bold; display:block;">$</div>
 <br/>
