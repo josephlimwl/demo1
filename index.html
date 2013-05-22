@@ -189,6 +189,14 @@ updateDisplay();
 setSelectedInput(2);
 }
 
+function invert_xc()
+{
+	xcvalue = 1 / xcvalue;
+	xcvalue = xcvalue.toFixed(2);
+	conversion();
+	updateDisplay();
+}
+
 function clear_xc()
 {
 xcvalue = 0;
@@ -199,20 +207,23 @@ setSelectedInput(1);
 }
 </script>
 </head>
-<!-- <body  onload="onDeviceReady();"  style="background:url('res/bg/bg2.png') no-repeat; font-family:arial;"> -->
+<!-- <body  onload="onDeviceReady();"  style="background:url('res/bg/bg2.png') no-repeat; font-family:arial;">  -->
 
-<body style="background:#000000; font-family:arial;">
+ <body style="background:#333333; font-family:arial;"> 
 
-<div id="infobar" style="color:white; font-size:larger; padding:5px;">Demo v0.0.12</div>
+<div id="infobar" style="color:white; font-size:larger; padding:5px;">Demo v0.0.14</div>
 <!-- 
 onload="onDeviceReady();"
 -->
 
-<div id="xcrate" style="border:1px solid #000000; text-align:right; color:#ffffff; vertical-align:bottom; width:65px; padding:5px; float:left;" onclick="setSelectedInput(1)">
+<div style="height:70px;">
+<div style="float:left;vertical-align:bottom;"><img id="img_inverse" onclick="invert_xc()" src="res/btn/inverse.png" style="width:24px; height:24px; border:none; padding:0px 5px; vertical-align:bottom;"/> </div>
+<div id="xcrate" style="border:1px solid #000000; text-align:right; color:#ffffff; vertical-align:bottom; width:55px; padding:5px; float:left;" onclick="setSelectedInput(1)">
 </div> <div style="float:left;vertical-align:bottom;"><img id="img_clear_xcrate" onclick="clear_xc()" src="res/btn/btn_cancel.png" style="width:24px; height:24px; border:none; padding:0px 5px; vertical-align:bottom;"/> &nbsp;</div>
 
-<div id="uvalue" style="border:1px solid #000000;text-align:right; color:#ffffff; vertical-align:bottom; width:95px; padding:5px; float:left;" onclick="setSelectedInput(2)">
+<div id="uvalue" style="border:1px solid #000000;text-align:right; color:#ffffff; vertical-align:bottom; width:80px; padding:5px; float:left;" onclick="setSelectedInput(2)">
 </div> <div style="float:left;vertical-align:bottom;"><img id="img_clear_value" onclick="clear_value()" src="res/btn/btn_cancel.png" style="width:24px; height:24px; border:none; padding:0px 5px; vertical-align:bottom;"/></div>
+</div>
 
 <div style="clear:both;">&nbsp;</div>
 
