@@ -13,12 +13,24 @@ var uv;
 var xcvalue = 1;
 var uvvalue = 0;
 var selectedInput = 2;
+var prevuv = 0;
+var opr = -1;
+var oprselect = 0;
+var pastvalues = '';
+var pv;
+var prevdv1 = '';
+var prevdv2 = '';
+var prevdv3 = '';
+var prevopr1 = ' ';
+var prevopr2 = ' ';
+var pasthidden = '';
 
 document.addEventListener("deviceready",onDeviceReady,false);
 
 function onDeviceReady() {
 	xc = document.getElementById('xcrate');
 	uv = document.getElementById('uvalue');
+	pv = document.getElementById('pastvalues');
 	getLastValue();
 	setSelectedInput(2);
 	updateDisplay();
@@ -26,9 +38,21 @@ function onDeviceReady() {
 	destinationType=navigator.camera.DestinationType;
 }
 
+function showPastValues() {
+	pv.innerHTML = pasthidden + pastvalues + "" + opcodeToString(opr);
+}
+
 function updateDisplay() {	
 	xc.innerHTML = xcvalue;
-	uv.innerHTML = uvvalue;
+	if (opr == -1)
+		uv.innerHTML = uvvalue;	
+	else
+		uv.innerHTML = prevuv;
+	
+	if (pasthidden.replace(" ", "") != "" && pasthidden.replace(" ", "") != " ")
+		pv.innerHTML = "... " + pastvalues + "" + opcodeToString(opr);
+	else
+		pv.innerHTML = pastvalues + "" + opcodeToString(opr);
 }
 
 function setSelectedInput(which) {
@@ -64,8 +88,11 @@ function user_input(what) {
 
 	if (what == "dot")
 	{
-		if (result.toString().indexOf(".") < 0)
+		if (result.toString().indexOf(".") < 0)		
+		{
+			oprselect = 0;
 			result = result + ".";
+		}
 	}
 	else if (what == "bksp")
 	{
@@ -73,8 +100,88 @@ function user_input(what) {
 		if (result == "")
 			result = "0";
 	}
+	else if (what == "mul")
+	{
+		if (selectedInput == 2) {			
+			if (oprselect == 0)
+			{
+				if (opr != -1)
+				{
+					calcPast(opr, uvvalue);
+					calcPrev();
+				}
+				else
+				{
+					calcPast(0, uvvalue);
+				}
+							
+				prevuv = uvvalue;
+				//alert(prevuv);
+				result = 0;
+				opr = 1;	
+				oprselect = 1;
+			}
+			else
+			{
+				opr = 1;
+			}
+		}
+	}
+	else if (what == "min")
+	{
+		if (selectedInput == 2) {	
+			if (oprselect == 0)
+			{
+				if (opr != -1)
+				{
+					calcPast(opr, uvvalue);
+					calcPrev();
+				}
+				else
+				{
+					calcPast(0, uvvalue);
+				}
+				prevuv = uvvalue;
+				//alert(prevuv);
+				result = 0;
+				opr = 2;			
+				oprselect = 1;
+			}
+			else
+			{
+				opr = 2;
+			}
+		}
+	}
+	else if (what == "add")
+	{
+		if (selectedInput == 2) {		
+			if (oprselect == 0)
+			{
+				if (opr != -1)
+				{
+					calcPast(opr, uvvalue);
+					calcPrev();
+				}
+				else
+				{
+					calcPast(0, uvvalue);
+				}
+				prevuv = uvvalue;
+				//alert(prevuv);
+				result = 0;
+				opr = 3;	
+				oprselect = 1;
+			}
+			else
+			{
+				opr = 3;
+			}			
+		}
+	}
 	else
 	{
+		oprselect = 0;
 		if (result != "0")
 			result = result + "" + what.toString();
 		else
@@ -93,6 +200,47 @@ function user_input(what) {
 
 	conversion();
 	updateDisplay();
+}
+
+function calcPrev() {
+
+	if (opr == 1)
+	{
+		uvvalue = prevuv * 1 * uvvalue * 1;
+	}
+	else if (opr == 2)
+	{
+		uvvalue = prevuv * 1 - uvvalue * 1;
+	}
+	else if (opr == 3)
+	{
+		uvvalue = prevuv * 1 + uvvalue * 1;
+	}
+}
+
+function calcPast(operand, s) {
+	
+var opstr = ' ';
+
+	if (operand != 0) {		
+		
+		pasthidden = pasthidden + prevdv3.toString() + "" + prevopr2.toString();
+		
+		prevdv3 = prevdv2;
+		prevdv2 = prevdv1;
+		prevdv1 = s;
+		
+		opstr = opcodeToString(operand);
+		
+		prevopr2 = prevopr1;
+		prevopr1 = opstr;
+	}
+	else {	
+		prevdv1 = s;
+	}
+					
+	pastvalues = prevdv3.toString() + "" + prevopr2.toString() + prevdv2.toString() + prevopr1.toString() + prevdv1.toString();
+	//alert("(" + pasthidden + ")(" + prevdv3 + ")");	
 }
 
 function onPhotoDataSuccess(imageData) {
@@ -132,6 +280,23 @@ function isNumber(n) {
 		n = n.toString() + "0";
 		
 	return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+
+function opcodeToString(op) {
+var opstr = ' ';
+		
+		if (op == 1) {
+			opstr = ' x ';
+		}
+		else if (op == 2) {
+			opstr = ' - ';
+		}
+		else if (op == 3) {
+			opstr = ' + ';
+		}					
+		
+	return opstr;
 }
 
 function conversion() {
@@ -200,9 +365,9 @@ function clear_xc() {
 </head>
 
 
- <!--  <body  onload="onDeviceReady();"  style="background:#000000; font-family:arial;">  -->
+   <body  onload="onDeviceReady();"  style="background:#000000; font-family:arial;">  
 
-  <body style="background:#000000; font-family:arial;">   
+  <!--  <body style="background:#000000; font-family:arial;">  -->
 
 
 <!-- 
@@ -229,7 +394,10 @@ onload="onDeviceReady();"
 <img src="res/btn/4.png" style="width:60px;height:60px;padding:0px 2px;" onclick="user_input(4)" /> <img src="res/btn/5.png" style="width:60px;height:60px;padding:0px 2px;" onclick="user_input(5)" /> <img src="res/btn/6.png" style="width:60px;height:60px;padding:0px 2px;" onclick="user_input(6)" /><br/>
 <img src="res/btn/7.png" style="width:60px;height:60px;padding:0px 2px;" onclick="user_input(7)" /> <img src="res/btn/8.png" style="width:60px;height:60px;padding:0px 2px;"  onclick="user_input(8)"/> <img src="res/btn/9.png" style="width:60px;height:60px;padding:0px 2px;" onclick="user_input(9)" /><br/>
 <img src="res/btn/dot.png" style="width:60px;height:60px;padding:0px 2px;" onclick="user_input('dot')" /> <img src="res/btn/0.png" style="width:60px;height:60px;padding:0px 2px;" onclick="user_input(0)" /> <img src="res/btn/back.png" style="width:60px;height:60px;padding:0px 2px;" onclick="user_input('bksp')" /><br/>
+<img src="res/btn/mul.png" style="width:60px;height:60px;padding:0px 2px;" onclick="user_input('mul')" /> <img src="res/btn/min.png" style="width:60px;height:60px;padding:0px 2px;" onclick="user_input('min')" /> <img src="res/btn/add.png" style="width:60px;height:60px;padding:0px 2px;" onclick="user_input('add')" /><br/>
 </div>
+</div>
+<div style="text-align:right;color:#ffffff; margin:5px;" id="pastvalues" onclick="showPastValues()">
 </div>
 <!-- <button onclick="capturePhoto();">Capture Photo</button> <br>
 <button onclick="capturePhotoEdit();">Capture Editable Photo</button> <br>
