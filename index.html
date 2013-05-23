@@ -181,7 +181,11 @@ function user_input(what) {
 	}
 	else
 	{
-		oprselect = 0;
+	
+		if (selectedInput == 2) {	
+			oprselect = 0;
+		}
+		
 		if (result != "0")
 			result = result + "" + what.toString();
 		else
@@ -376,7 +380,7 @@ function clear_xc() {
 
     <!-- <body  onload="onDeviceReady();"  style="background:#000000; font-family:arial;">   -->
 
-     <body style="background:#000000; font-family:arial;">   
+      <body style="background:#000000; font-family:arial;">   
 
 
 <!-- 
