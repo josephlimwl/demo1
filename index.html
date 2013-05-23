@@ -44,7 +44,7 @@ function showPastValues() {
 
 function updateDisplay() {	
 	xc.innerHTML = xcvalue;
-	if (opr == -1)
+	if (oprselect != 1)
 		uv.innerHTML = uvvalue;	
 	else
 		uv.innerHTML = prevuv;
@@ -303,7 +303,16 @@ function conversion() {
 	var infobar = document.getElementById('infobar');
 
 	var xcrate = isNumber(xcvalue) ? xcvalue : 1;
-	var uval = isNumber(uvvalue) ? uvvalue : 1;	
+	
+	var uval;
+	if (oprselect != 1)
+	{
+		uval = isNumber(uvvalue) ? uvvalue : 1;
+	}
+	else
+	{
+		uval = isNumber(prevuv) ? prevuv : 1;
+	}
 
 	try {		
 		var result = uval / xcrate;
@@ -314,7 +323,7 @@ function conversion() {
 			resultdiv.innerHTML = "Error";
 	}
 	catch(err){
-	resultdiv.innerHTML = "Error";
+		resultdiv.innerHTML = "Error";
 	}
 }
 
@@ -365,9 +374,9 @@ function clear_xc() {
 </head>
 
 
-   <!-- <body  onload="onDeviceReady();"  style="background:#000000; font-family:arial;">   -->
+    <!-- <body  onload="onDeviceReady();"  style="background:#000000; font-family:arial;">   -->
 
-    <body style="background:#000000; font-family:arial;">  
+     <body style="background:#000000; font-family:arial;">   
 
 
 <!-- 
@@ -375,13 +384,13 @@ onload="onDeviceReady();"
 -->
 
 <div style="margin:0px auto; width:310px; height:90px;">
-<div id="infobar" style="color:white; font-size:larger; font-weight:bold; padding:5px 0px 15px 5px;">Demo v0.0.18</div>
+<div id="infobar" style="color:white; font-size:larger; font-weight:bold; padding:5px 0px 15px 5px;">Demo v0.0.19</div>
 
 <div style="float:left;vertical-align:bottom;"><img id="img_inverse" onclick="invert_xc()" src="res/btn/inverse.png" style="width:24px; height:24px; border:none; margin:3px 0px 0px 0px; padding:0px 5px; vertical-align:bottom;"/> </div>
 <div id="xcrate" style="border:1px solid #000000; text-align:right; color:#ffffff; vertical-align:bottom; width:55px; padding:5px; float:left;" onclick="setSelectedInput(1)">
 </div> <div style="float:left;vertical-align:bottom;"><img id="img_clear_xcrate" onclick="clear_xc()" src="res/btn/btn_cancel.png" style="width:24px; height:24px; border:none; margin:3px 0px 0px 0px; padding:0px 5px; vertical-align:bottom;"/> &nbsp;</div>
 
-<div id="uvalue" style="border:1px solid #000000;text-align:right; color:#ffffff; vertical-align:bottom; width:80px; padding:5px; float:left;" onclick="setSelectedInput(2)">
+<div id="uvalue" style="border:1px solid #000000;text-align:right;overflow:hidden; color:#ffffff; vertical-align:bottom; width:80px; padding:5px; float:left;" onclick="setSelectedInput(2)">
 </div> <div style="float:left;vertical-align:bottom;"><img id="img_clear_value" onclick="clear_value()" src="res/btn/btn_cancel.png" style="width:24px; height:24px; border:none; margin:3px 0px 0px 0px; padding:0px 5px; vertical-align:bottom;"/></div>
 </div>
 
@@ -389,12 +398,12 @@ onload="onDeviceReady();"
 
 <div id="amt" style="float:left; width:290px; text-align:left; margin:5px 0px 0px 10px; font-size:xx-large; color:white; font-weight:bold; display:block;">$</div>
 <br/>
-<div style="clear:both; margin:50px 5px 0px 5px;">
+<div style="clear:both; margin:35px 5px 0px 5px;">
 <img src="res/btn/1.png" style="width:60px;height:60px;padding:0px 2px;" onclick="user_input(1)" /> <img src="res/btn/2.png" style="width:60px;height:60px;padding:0px 2px;" onclick="user_input(2)" /> <img src="res/btn/3.png" style="width:60px;height:60px;padding:0px 2px;" onclick="user_input(3)" /><br/>
 <img src="res/btn/4.png" style="width:60px;height:60px;padding:0px 2px;" onclick="user_input(4)" /> <img src="res/btn/5.png" style="width:60px;height:60px;padding:0px 2px;" onclick="user_input(5)" /> <img src="res/btn/6.png" style="width:60px;height:60px;padding:0px 2px;" onclick="user_input(6)" /><br/>
 <img src="res/btn/7.png" style="width:60px;height:60px;padding:0px 2px;" onclick="user_input(7)" /> <img src="res/btn/8.png" style="width:60px;height:60px;padding:0px 2px;"  onclick="user_input(8)"/> <img src="res/btn/9.png" style="width:60px;height:60px;padding:0px 2px;" onclick="user_input(9)" /><br/>
 <img src="res/btn/dot.png" style="width:60px;height:60px;padding:0px 2px;" onclick="user_input('dot')" /> <img src="res/btn/0.png" style="width:60px;height:60px;padding:0px 2px;" onclick="user_input(0)" /> <img src="res/btn/back.png" style="width:60px;height:60px;padding:0px 2px;" onclick="user_input('bksp')" /><br/>
-<img src="res/btn/mul.png" style="width:60px;height:60px;padding:0px 2px;" onclick="user_input('mul')" /> <img src="res/btn/min.png" style="width:60px;height:60px;padding:0px 2px;" onclick="user_input('min')" /> <img src="res/btn/add.png" style="width:60px;height:60px;padding:0px 2px;" onclick="user_input('add')" /><br/>
+<img src="res/btn/mul.png" style="width:50px;height:50px;padding:4px 7px;" onclick="user_input('mul')" /> <img src="res/btn/min.png" style="width:50px;height:50px;padding:4px 7px;" onclick="user_input('min')" /> <img src="res/btn/add.png" style="width:50px;height:50px;padding:4px 7px;" onclick="user_input('add')" /><br/>
 </div>
 </div>
 <div style="text-align:right;color:#ffffff; margin:5px;" id="pastvalues" onclick="showPastValues()">
