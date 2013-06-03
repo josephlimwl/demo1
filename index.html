@@ -11,20 +11,19 @@ function FastClick(layer) {
 	this.trackingClick = false;
 	this.trackingClickStart = 0;
 	this.targetElement = null;
-
-
 	this.touchStartX = 0;
 	this.touchStartY = 0;
-
-
 	this.lastTouchIdentifier = 0;
 	this.touchBoundary = 10;
 	this.layer = layer;
 
+	this.debuginfo.innerHTML += "!";
+	
 	if (!layer || !layer.nodeType) {
 		throw new TypeError('Layer must be a document node');
 	}
-
+	
+	this.debuginfo.innerHTML += "," + "00";
 	
 	/** @type function() */
 	this.onClick = function() { return FastClick.prototype.onClick.apply(self, arguments); };
@@ -713,8 +712,8 @@ function onDeviceReady() {
 	getLastValue();
 	setSelectedInput(2);
 	updateDisplay();
-	pictureSource=navigator.camera.PictureSourceType;
-	destinationType=navigator.camera.DestinationType;
+	//pictureSource=navigator.camera.PictureSourceType;
+	//destinationType=navigator.camera.DestinationType;
 }
 
 function showPastValues() {
@@ -1070,7 +1069,7 @@ onload="onDeviceReady();"
 -->
 
 <div style="margin:0px auto; width:310px; height:90px;">
-<div id="infobar" style="color:white; font-size:larger; font-weight:bold; padding:5px 0px 15px 5px;">Demo v0.0.27b</div>
+<div id="infobar" style="color:white; font-size:larger; font-weight:bold; padding:5px 0px 15px 5px;">Demo v0.0.27c</div>
 
 <div style="float:left;vertical-align:bottom;"><img id="img_inverse" onclick="invert_xc()" src="res/btn/inverse.png" style="width:24px; height:24px; border:none; margin:3px 0px 0px 0px; padding:0px 5px; vertical-align:bottom;"/> </div>
 <div id="xcrate" style="border:1px solid #000000; text-align:right; color:#ffffff; vertical-align:bottom; width:55px; padding:5px; float:left;" onclick="setSelectedInput(1)">
