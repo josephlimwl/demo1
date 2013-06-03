@@ -4,7 +4,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <title>Demo1</title>
 <script src="phonegap.js"></script>
+<script src="fastclick.js"></script>
+
 <script type="text/javascript" charset="utf-8">
+/*
 var element;
 var handler;
 //======================================================== FASTCLICK
@@ -22,7 +25,7 @@ var handler;
             }
          };
          FastButton.prototype.onTouchStart = function(event) {
-            
+            alert("1");
 event.stopPropagation();
             this.element.addEventListener('touchend', this, false);
             document.body.addEventListener('touchmove', this, false);
@@ -68,7 +71,8 @@ event.stopPropagation();
          function initFastButtons() {
  new FastButton(document.getElementById("fastclick"), goSomewhere);
          };
-         function goSomewhere() {
+		 
+         function goSomewhere() {		 
  var theTarget = document.elementFromPoint(this.startX, this.startY);
  if(theTarget.nodeType == 3) theTarget = theTarget.parentNode;
  
@@ -77,7 +81,7 @@ event.stopPropagation();
  theTarget.dispatchEvent(theEvent);
          };
 //========================================================
-
+*/
 </script>
 
 <script type="text/javascript" charset="utf-8">
@@ -104,7 +108,7 @@ var pasthidden = '';
 document.addEventListener("deviceready",onDeviceReady,false);
 
 function onDeviceReady() {
-initFastButtons();
+FastClick.attach(document.body);
 	xc = document.getElementById('xcrate');
 	uv = document.getElementById('uvalue');
 	pv = document.getElementById('pastvalues');
@@ -455,9 +459,9 @@ function clear_xc() {
 </head>
 
 
-    <!-- <body  onload="onDeviceReady();"  style="background:#000000; font-family:arial;">   -->
+ <body  onload="onDeviceReady();"  style="background:#000000; font-family:arial;">   
 
-      <body style="background:#000000; font-family:arial;">
+<!--      <body style="background:#000000; font-family:arial;"> -->
 <span id="fastclick">
 
 <!-- 
@@ -465,7 +469,7 @@ onload="onDeviceReady();"
 -->
 
 <div style="margin:0px auto; width:310px; height:90px;">
-<div id="infobar" style="color:white; font-size:larger; font-weight:bold; padding:5px 0px 15px 5px;">Demo v0.0.24</div>
+<div id="infobar" style="color:white; font-size:larger; font-weight:bold; padding:5px 0px 15px 5px;">Demo v0.0.25</div>
 
 <div style="float:left;vertical-align:bottom;"><img id="img_inverse" onclick="invert_xc()" src="res/btn/inverse.png" style="width:24px; height:24px; border:none; margin:3px 0px 0px 0px; padding:0px 5px; vertical-align:bottom;"/> </div>
 <div id="xcrate" style="border:1px solid #000000; text-align:right; color:#ffffff; vertical-align:bottom; width:55px; padding:5px; float:left;" onclick="setSelectedInput(1)">
