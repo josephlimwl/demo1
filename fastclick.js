@@ -74,12 +74,14 @@ function FastClick(layer) {
 	 *
 	 * @type Element
 	 */
+	 
 	this.layer = layer;
 
 	if (!layer || !layer.nodeType) {
 		throw new TypeError('Layer must be a document node');
 	}
 
+	
 	/** @type function() */
 	this.onClick = function() { return FastClick.prototype.onClick.apply(self, arguments); };
 
@@ -99,6 +101,7 @@ function FastClick(layer) {
 		return;
 	}
 
+	
 	// Set up event handlers as required
 	if (this.deviceIsAndroid) {
 		layer.addEventListener('mouseover', this.onMouse, true);
@@ -111,6 +114,7 @@ function FastClick(layer) {
 	layer.addEventListener('touchend', this.onTouchEnd, false);
 	layer.addEventListener('touchcancel', this.onTouchCancel, false);
 
+	alert("hey");
 	// Hack is required for browsers that don't support Event#stopImmediatePropagation (e.g. Android 2)
 	// which is how FastClick normally stops click events bubbling to callbacks registered on the FastClick
 	// layer when they are cancelled.
