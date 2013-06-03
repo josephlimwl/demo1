@@ -705,11 +705,11 @@ var debuginfo;
 document.addEventListener("deviceready",onDeviceReady,false);
 
 function onDeviceReady() {
-FastClick.attach(document.body);
 	xc = document.getElementById('xcrate');
 	uv = document.getElementById('uvalue');
 	pv = document.getElementById('pastvalues');
 	debuginfo = document.getElementById('pastvalues');
+	FastClick.attach(document.body);
 	getLastValue();
 	setSelectedInput(2);
 	updateDisplay();
@@ -1070,7 +1070,7 @@ onload="onDeviceReady();"
 -->
 
 <div style="margin:0px auto; width:310px; height:90px;">
-<div id="infobar" style="color:white; font-size:larger; font-weight:bold; padding:5px 0px 15px 5px;">Demo v0.0.27A</div>
+<div id="infobar" style="color:white; font-size:larger; font-weight:bold; padding:5px 0px 15px 5px;">Demo v0.0.27b</div>
 
 <div style="float:left;vertical-align:bottom;"><img id="img_inverse" onclick="invert_xc()" src="res/btn/inverse.png" style="width:24px; height:24px; border:none; margin:3px 0px 0px 0px; padding:0px 5px; vertical-align:bottom;"/> </div>
 <div id="xcrate" style="border:1px solid #000000; text-align:right; color:#ffffff; vertical-align:bottom; width:55px; padding:5px; float:left;" onclick="setSelectedInput(1)">
